@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <div class="card mb-4">
+            <div class="card-header bg-success text-white">
+                <h4>نتائج الطالب</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>رقم الجلوس:</strong> {{ student.seat_number }}</p>
+                        <p><strong>الاسم:</strong> {{ student.full_name }}</p>
+                        <p><strong>تاريخ الميلاد:</strong> {{ student.birth_date }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>المجموع الكلي:</strong> {{ student.total_score }}/700</p>
+                        <p><strong>النسبة المئوية:</strong> {{ student.percentage }}%</p>
+                        <p><strong>المركز على مستوى الأردن:</strong> {{ rank }}</p>
+                    </div>
+                </div>
+                
+                <hr>
+                
+                <h5>العلامات التفصيلية</h5>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead class="table-light">
+                            <tr>
+                                <th>الرياضيات</th>
+                                <th>التربية الإسلامية</th>
+                                <th>التاريخ</th>
+                                <th>الجغرافيا</th>
+                                <th>اللغة الإنجليزية</th>
+                                <th>اللغة العربية</th>
+                                <th>الاجتماعيات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ student.math }}</td>
+                                <td>{{ student.religion }}</td>
+                                <td>{{ student.history }}</td>
+                                <td>{{ student.geography }}</td>
+                                <td>{{ student.english }}</td>
+                                <td>{{ student.arabic }}</td>
+                                <td>{{ student.social_studies }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <h4>Leaderboard - أعلى 10 طلاب</h4>
+            </div>
+            <div class="card-body">
+                <div class="list-group">
+                    {% for top_student in top_students %}
+                    <div class="list-group-item {% if top_student.seat_number == student.seat_number %}list-group-item-success{% endif %}">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1">{{ loop.index }}. {{ top_student.full_name }}</h6>
+                            <small>{{ top_student.total_score }}/700</small>
+                        </div>
+                        <small class="text-muted">{{ top_student.percentage }}%</small>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mt-3 text-center">
+    <a href="{{ url_for('index') }}" class="btn btn-primary">رجوع إلى الصفحة الرئيسية</a>
+</div>
+{% endblock %}
