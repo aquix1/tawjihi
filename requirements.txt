@@ -1,0 +1,4 @@
+Flask==2.3.3
+Flask-MongoEngine==1.0.0
+mongoengine==0.27.0
+Werkzeug==2.3.7
